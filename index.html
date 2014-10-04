@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="twitterApp">
+<head>
+    <title>Tweet-angular</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <style>
+        .container {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        #results .row {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" ng-controller="TwitterController">
+        <h1>Tweet-angular</h1>
+        <div class="row">
+            <div class="col-xs-12">
+                <button ng-click="connectButton()" id="connectButton" type="button" class="btn btn-primary">Connect Twitter</button>
+                <button ng-click="refreshTimeline()" id="getTimelineButton" type="button" class="btn btn-info" style="display:none;">Get My Timeline</button>
+                <input type="text" on-enter="searchTwitter()" ng-model='searchTerm' placeholder='Search Here' />
+                <button ng-click="signOut()" id="signOut" type="button" class="btn btn-link" style="display:none;float:right;">Sign Out</button>
+            </div>
+        </div>
+        <div class="row ng-cloak">
+            <div class="col-xs-12" id="results">
+                <div class="row" ng-repeat="t in tweets">
+                    <div class="col-xs-2 col-sm-1">
+                        <img ng-src="{{t.user.profile_image_url}}" class="img-circle">
+                    </div>
+                    <div class="col-xs-10 col-sm-11">
+                        <small>{{t.user.name}}</small><br>{{t.text}}
+                        <br/>
+                        <a href='' ng-show='t.retweeted' ng-click=''>Retweeted</span>
+                        <a href='' ng-hide='t.retweeted' ng-click='retweet(t)'>Retweet</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    <script src="lib/oauth.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+
+    <script src="app.js"></script>
+    <script src="controllers/controllers.js"></script>
+    <script src="services/services.js"></script>
+    <script src="directives/directives.js"></script>
+
+    <script src="controllers/timeline_controller.js"></script>
+    <script src="services/twitter_service.js"></script>
+    <script src="directives/input_submit_directive.js"></script>
+</body>
+</html>
